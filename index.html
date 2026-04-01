@@ -11,265 +11,45 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap');
-        
-        body, html {
-            margin: 0; padding: 0;
-            width: 100%; height: 100%;
-            overflow-x: hidden;
-            font-family: 'Quicksand', sans-serif;
-            background-color: #fff;
-        }
-
-        #canvas-container {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            background: linear-gradient(135deg, #fff0f5 0%, #f0faff 100%);
-        }
-
-        .main-wrapper {
-            min-height: 100vh;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* LOGO WMONEYX VỚI DẢI LED CHẠY BÊN TRONG */
-        .logo-header {
-            font-size: 3.5rem;
-            font-weight: 900;
-            letter-spacing: -2px;
-            margin-bottom: 10px;
-            position: relative;
-            display: inline-block;
-            background: linear-gradient(90deg, #ff00ff, #00ffff, #ff00ff);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: led-text-flow 3s linear infinite, neonPulse 2s infinite ease-in-out;
-            filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));
-        }
-
-        @keyframes led-text-flow {
-            to { background-position: 200% center; }
-        }
-
-        @keyframes neonPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        /* LOGO CON VẬT ĐÁNG YÊU ĐỘNG */
-        .cute-animal-box {
-            font-size: 4rem;
-            margin-bottom: 10px;
-            display: inline-block;
-            animation: animalBounce 2s infinite ease-in-out;
-        }
-
-        @keyframes animalBounce {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(5deg); }
-        }
-
-        .content-full {
-            width: 100%;
-            max-width: 800px;
-            text-align: center;
-            transition: all 0.5s ease;
-        }
-
-        .time-badge {
-            background: #ff00ff;
-            color: white;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-weight: 700;
-            display: inline-block;
-            margin-bottom: 20px;
-            font-size: 0.85rem;
-            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.4);
-            border: 2px solid #fff;
-        }
-
-        /* Button với Dải LED chạy dưới đáy */
-        .btn-action {
-            background: white;
-            border: 1px solid #ffb3ff;
-            border-radius: 20px;
-            padding: 18px;
-            margin-bottom: 20px;
-            font-weight: 700;
-            color: #b300b3;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-            font-size: 1.05rem;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(255, 0, 255, 0.05);
-        }
-
-        .btn-action::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: -100%;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, #ff00ff, #00ffff, #ff00ff, transparent);
-            animation: led-bottom-run 3s linear infinite;
-        }
-
-        @keyframes led-bottom-run {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        .btn-action:hover {
-            transform: translateY(-4px);
-            background: #fffafa;
-            box-shadow: 0 10px 25px rgba(255, 0, 255, 0.15);
-        }
-
-        .btn-primary-custom {
-            border: none !important;
-            background: #ff00ff !important;
-            color: white !important;
-        }
-        
-        .btn-primary-custom::before {
-            background: linear-gradient(90deg, transparent, #fff, #00ffff, #fff, transparent);
-        }
-
-        .verify-section {
-            animation: slideUp 0.6s ease-out;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .step-card {
-            background: #fff;
-            border: 1px solid #ffb3ff;
-            border-left: 8px solid #ff00ff;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 15px;
-            text-align: left;
-            color: #444;
-            box-shadow: 0 5px 15px rgba(255, 0, 255, 0.05);
-        }
-
-        .input-mega {
-            width: 100%;
-            padding: 20px;
-            border: 3px solid #ffb3ff;
-            border-radius: 20px;
-            margin: 20px 0;
-            outline: none;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #ff00ff;
-            background: #fff;
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .input-mega:focus {
-            border-color: #ff00ff;
-            box-shadow: 0 0 25px rgba(255, 0, 255, 0.2);
-        }
-
-        .btn-send-mega {
-            background: linear-gradient(90deg, #ff00ff, #d600d6);
-            color: white;
-            width: 100%;
-            padding: 20px;
-            border-radius: 20px;
-            font-weight: 900;
-            font-size: 1.3rem;
-            text-transform: uppercase;
-            box-shadow: 0 8px 0px #990099;
-            cursor: pointer;
-            transition: 0.2s;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-send-mega::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: -100%;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, transparent, #fff, #00ffff, #fff, transparent);
-            animation: led-bottom-run 2s linear infinite;
-        }
-
-        .footer-info {
-            margin-top: 30px;
-            padding: 20px;
-            background: white;
-            border-radius: 20px;
-            border: 2px dashed #ff00ff;
-            color: #666;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .copyright-text {
-            margin-top: 40px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #ff00ff;
-            opacity: 0.9;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(255, 0, 255, 0.2);
-        }
-
-        .back-link {
-            margin-top: 20px;
-            font-weight: 700;
-            color: #ff00ff;
-            cursor: pointer;
-            padding: 8px 20px;
-            background: white;
-            border: 1px solid #ffb3ff;
-            border-radius: 50px;
-            display: inline-block;
-        }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow-x: hidden; font-family: 'Quicksand', sans-serif; background-color: #fff; }
+        #canvas-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(135deg, #fff0f5 0%, #f0faff 100%); }
+        .main-wrapper { min-height: 100vh; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; position: relative; z-index: 1; }
+        .logo-header { font-size: 3.5rem; font-weight: 900; letter-spacing: -2px; margin-bottom: 10px; position: relative; display: inline-block; background: linear-gradient(90deg, #ff00ff, #00ffff, #ff00ff); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: led-text-flow 3s linear infinite, neonPulse 2s infinite ease-in-out; filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5)); }
+        @keyframes led-text-flow { to { background-position: 200% center; } }
+        @keyframes neonPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .cute-animal-box { font-size: 4rem; margin-bottom: 10px; display: inline-block; animation: animalBounce 2s infinite ease-in-out; }
+        @keyframes animalBounce { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-15px) rotate(5deg); } }
+        .content-full { width: 100%; max-width: 800px; text-align: center; transition: all 0.5s ease; }
+        .time-badge { background: #ff00ff; color: white; padding: 8px 20px; border-radius: 50px; font-weight: 700; display: inline-block; margin-bottom: 20px; font-size: 0.85rem; box-shadow: 0 5px 15px rgba(255, 0, 255, 0.4); border: 2px solid #fff; }
+        .btn-action { background: white; border: 1px solid #ffb3ff; border-radius: 20px; padding: 18px; margin-bottom: 20px; font-weight: 700; color: #b300b3; display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; font-size: 1.05rem; transition: all 0.3s; position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(255, 0, 255, 0.05); }
+        .btn-action::after { content: ''; position: absolute; bottom: 0; left: -100%; width: 100%; height: 3px; background: linear-gradient(90deg, transparent, #ff00ff, #00ffff, #ff00ff, transparent); animation: led-line 3s linear infinite; }
+        @keyframes led-line { 0% { left: -100%; } 100% { left: 100%; } }
+        .btn-action:hover { transform: translateY(-4px); background: #fffafa; box-shadow: 0 10px 25px rgba(255, 0, 255, 0.15); }
+        .btn-primary-custom { border: none !important; background: #ff00ff !important; color: white !important; }
+        .step-card { background: #fff; border: 1px solid #ffb3ff; border-left: 8px solid #ff00ff; padding: 20px; border-radius: 15px; margin-bottom: 15px; text-align: left; color: #444; box-shadow: 0 5px 15px rgba(255, 0, 255, 0.05); }
+        .input-mega { width: 100%; padding: 20px; border: 3px solid #ffb3ff; border-radius: 20px; margin: 20px 0; outline: none; font-size: 1.2rem; font-weight: 700; color: #ff00ff; background: #fff; text-align: center; transition: 0.3s; }
+        .btn-send-mega { background: linear-gradient(90deg, #ff00ff, #d600d6); color: white; width: 100%; padding: 20px; border-radius: 20px; font-weight: 900; font-size: 1.3rem; text-transform: uppercase; box-shadow: 0 8px 0px #990099; cursor: pointer; transition: 0.2s; }
+        .btn-send-mega:active { transform: translateY(4px); box-shadow: 0 4px 0px #990099; }
+        .footer-info { margin-top: 30px; padding: 20px; background: white; border-radius: 20px; border: 2px dashed #ff00ff; color: #666; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .copyright-text { margin-top: 40px; font-size: 0.85rem; font-weight: 700; color: #ff00ff; opacity: 0.9; }
+        .back-link { margin-top: 20px; font-weight: 700; color: #ff00ff; cursor: pointer; padding: 8px 20px; background: white; border: 1px solid #ffb3ff; border-radius: 50px; display: inline-block; }
+        #notification-box { position: fixed; top: 20px; right: 20px; z-index: 9999; background: white; border-left: 5px solid #00ffff; padding: 15px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transform: translateX(150%); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        #notification-box.show { transform: translateX(0); }
     </style>
 </head>
 <body>
-
     <div id="canvas-container"></div>
+    <div id="notification-box">
+        <p class="text-xs font-bold text-gray-400 uppercase">Thông báo hệ thống</p>
+        <p id="notif-content" class="text-sm font-bold text-pink-600">...</p>
+    </div>
 
     <div class="main-wrapper">
-        
-        <!-- LOGO WEB CHÍNH VỚI DẢI LED CHẠY BÊN TRONG -->
         <div class="logo-header">WMONEYX</div>
 
-        <!-- TRANG CHÍNH -->
         <div id="home-page" class="content-full">
             <div id="datetime" class="time-badge">...</div>
-            
-            <!-- LOGO CON VẬT ĐÁNG YÊU -->
             <div class="cute-animal-box">🐼</div>
-            
             <p class="text-pink-600 font-bold mb-8">
                 Bạn đã hoàn thành nhiệm vụ đặc biệt.<br>Vui lòng dán link để Admin xác minh ngay!
             </p>
@@ -284,52 +64,36 @@
                     Xác minh Review Tripadvisor
                 </button>
                 <button onclick="showVerifyPage('App')" class="btn-action btn-primary-custom">
-                    <i class="fa-solid fa-gift text-xl"></i>
+                    <i class="fa-solid fa-gift text-xl text-white"></i>
                     Xác minh Tải & Review App
                 </button>
             </div>
         </div>
 
-        <!-- TRANG XÁC MINH -->
-        <div id="verify-page" class="content-full verify-section" style="display: none;">
+        <div id="verify-page" class="content-full" style="display: none;">
             <h2 id="verify-title" class="text-2xl md:text-3xl font-black text-[#ff00ff] mb-6 uppercase italic">HƯỚNG DẪN</h2>
-            
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
                 <div class="step-card">
                     <div class="font-black text-[#ff00ff] text-xl mb-1">BƯỚC 1</div>
-                    <div id="step1-text">Vào phần copy trên thiết bị (Bộ nhớ tạm)</div>
+                    <div>Vào phần copy trên thiết bị (Bộ nhớ tạm)</div>
                 </div>
                 <div class="step-card">
                     <div class="font-black text-[#ff00ff] text-xl mb-1">BƯỚC 2</div>
-                    <div id="step2-text">Dán link bài đánh giá (Dạng: https://maps.app.goo.gl/...)</div>
+                    <div id="step2-text">Dán link bài đánh giá vừa copy</div>
                 </div>
             </div>
-
             <div class="max-w-md mx-auto">
                 <input type="text" id="task-link" class="input-mega" placeholder="Dán link tại đây...">
                 <button onclick="sendToAdmin()" id="btn-send" class="btn-send-mega">GỬI XÁC MINH</button>
             </div>
-
             <div class="footer-info text-left">
-                <p class="mb-2 font-black text-red-500 flex items-center gap-2">
-                    <i class="fa-solid fa-clock"></i> THỜI GIAN DUYỆT:
-                </p>
-                <div class="flex justify-between text-sm py-1 border-b border-pink-100">
-                    <span class="font-bold">Duyệt lần 1:</span>
-                    <span class="text-[#ff00ff] font-black">24 GIỜ</span>
-                </div>
-                <div class="flex justify-between text-sm py-1">
-                    <span class="font-bold">Duyệt lần 2:</span>
-                    <span class="text-[#ff00ff] font-black">10 NGÀY</span>
-                </div>
+                <p class="mb-2 font-black text-red-500 flex items-center gap-2"><i class="fa-solid fa-clock"></i> THỜI GIAN DUYỆT:</p>
+                <div class="flex justify-between text-sm py-1 border-b border-pink-100"><span class="font-bold">Duyệt lần 1:</span><span class="text-[#ff00ff] font-black">24 GIỜ</span></div>
+                <div class="flex justify-between text-sm py-1"><span class="font-bold">Duyệt lần 2:</span><span class="text-[#ff00ff] font-black">10 NGÀY</span></div>
             </div>
-
-            <div class="back-link" onclick="showHomePage()">
-                <i class="fa-solid fa-chevron-left"></i> Quay lại
-            </div>
+            <div class="back-link" onclick="showHomePage()"><i class="fa-solid fa-chevron-left"></i> Quay lại</div>
         </div>
 
-        <!-- BẢN QUYỀN -->
         <div class="copyright-text">© 2026 Developed by HOANG MAI ANH VU</div>
     </div>
 
@@ -341,60 +105,62 @@
         let scene, camera, renderer, crystals = [], particles;
         let selectedType = "";
 
+        // Lắng nghe Realtime từ bảng special_task_submissions
+        function initRealtime() {
+            _supabase
+                .channel('public:special_task_submissions')
+                .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'special_task_submissions' }, payload => {
+                    showNotification("Hệ thống đã nhận được 1 yêu cầu mới!");
+                })
+                .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'special_task_submissions' }, payload => {
+                    if (payload.new.status_1 === 'approved') {
+                        showNotification("Admin đã phê duyệt nhiệm vụ thành công!");
+                    }
+                })
+                .subscribe();
+        }
+
+        function showNotification(msg) {
+            const box = document.getElementById('notification-box');
+            document.getElementById('notif-content').innerText = msg;
+            box.classList.add('show');
+            setTimeout(() => box.classList.remove('show'), 4000);
+        }
+
         function init3DBg() {
             scene = new THREE.Scene();
             camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
             camera.position.z = 25;
-
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.getElementById('canvas-container').appendChild(renderer.domElement);
-
             const crystalGeo = new THREE.OctahedronGeometry(1, 0);
-            const crystalMat = new THREE.MeshPhongMaterial({ 
-                color: 0xff00ff, 
-                transparent: true, 
-                opacity: 0.15,
-                wireframe: true 
-            });
-            
+            const crystalMat = new THREE.MeshPhongMaterial({ color: 0xff00ff, transparent: true, opacity: 0.15, wireframe: true });
             for(let i=0; i<25; i++) {
                 let crystal = new THREE.Mesh(crystalGeo, crystalMat);
                 crystal.position.set(Math.random()*60-30, Math.random()*60-30, Math.random()*30-15);
-                crystal.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI, Math.random()*Math.PI);
                 let scale = Math.random() * 2 + 0.5;
                 crystal.scale.set(scale, scale, scale);
                 scene.add(crystal);
                 crystals.push(crystal);
             }
-
             const pGeo = new THREE.BufferGeometry();
             let pCoords = [];
-            for(let i=0; i<500; i++) {
-                pCoords.push(Math.random()*100-50, Math.random()*100-50, Math.random()*100-50);
-            }
+            for(let i=0; i<500; i++) { pCoords.push(Math.random()*100-50, Math.random()*100-50, Math.random()*100-50); }
             pGeo.setAttribute('position', new THREE.Float32BufferAttribute(pCoords, 3));
-            const pMat = new THREE.PointsMaterial({ color: 0x00ffff, size: 0.2, transparent: true, opacity: 0.4 });
-            particles = new THREE.Points(pGeo, pMat);
+            particles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0x00ffff, size: 0.1, transparent: true, opacity: 0.4 }));
             scene.add(particles);
-
-            scene.add(new THREE.AmbientLight(0xffffff, 0.9));
+            scene.add(new THREE.AmbientLight(0xffffff, 1));
         }
 
         function animate3D() {
             requestAnimationFrame(animate3D);
             crystals.forEach((c, i) => {
-                c.rotation.x += 0.005;
-                c.rotation.y += 0.003;
-                c.position.y += Math.sin(Date.now() * 0.001 + i) * 0.01;
+                c.rotation.x += 0.005; c.rotation.y += 0.003;
+                c.position.y += Math.sin(Date.now() * 0.001 + i) * 0.005;
             });
             particles.rotation.y += 0.0005;
             renderer.render(scene, camera);
-        }
-
-        function updateDateTime() {
-            const now = new Date();
-            document.getElementById('datetime').innerText = now.toLocaleString('vi-VN');
         }
 
         function showVerifyPage(type) {
@@ -403,49 +169,65 @@
             document.getElementById('verify-page').style.display = 'block';
             document.getElementById('verify-title').innerText = "XÁC MINH " + type;
             document.getElementById('task-link').value = '';
-
-            const step2 = document.getElementById('step2-text');
-            if(type === 'App') {
-                step2.innerHTML = 'Chụp ảnh màn hình (để đối chiếu nếu cần)<br>Copy link App (VD: https://play.google.com/store/apps/...)';
-            } else {
-                step2.innerHTML = 'Dán link bài đánh giá vừa copy (Dạng: https://maps.app.goo.gl/...)';
-            }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('step2-text').innerText = type === 'App' ? 'Dán link App hoặc mã giới thiệu của bạn.' : 'Dán link bài đánh giá (VD: https://maps.app.goo.gl/...)';
+            window.scrollTo(0,0);
         }
 
         function showHomePage() {
             document.getElementById('verify-page').style.display = 'none';
             document.getElementById('home-page').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         async function sendToAdmin() {
-            const link = document.getElementById('task-link').value;
-            if(!link || !link.includes('http')) { alert('Vui lòng dán đúng Link!'); return; }
+            const link = document.getElementById('task-link').value.trim();
+            if(!link || !link.startsWith('http')) { alert('Vui lòng dán đúng Link nhiệm vụ!'); return; }
             const btn = document.getElementById('btn-send');
-            btn.innerHTML = 'ĐANG GỬI...';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ĐANG GỬI...';
             btn.disabled = true;
 
             try {
-                const { error } = await _supabase.from('tasks').insert([{ 
-                    admin_id: "7790668848", 
-                    task_type: selectedType, 
-                    task_link: link,
-                    status: 'pending'
-                }]);
+                // Gửi dữ liệu vào bảng special_task_submissions với các tên cột chuẩn xác
+                const { error } = await _supabase
+                    .from('special_task_submissions')
+                    .insert([{ 
+                        user_id: "7790668848", 
+                        task_type: selectedType, 
+                        review_link: link, 
+                        status_1: 'pending',
+                        created_at: new Date().toISOString(),
+                        completed_at: null,
+                        reward_amount: 0
+                    }]);
+
                 if (error) throw error;
-                confetti({ particleCount: 150, spread: 60, colors: ['#ff00ff', '#00ffff', '#ffffff'] });
-                btn.innerHTML = 'GỬI THÀNH CÔNG';
+
+                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ff00ff', '#00ffff'] });
+                btn.innerHTML = 'THÀNH CÔNG!';
+                
                 setTimeout(() => { 
-                    alert('Đã gửi! Duyệt trong 24h.'); 
-                    // Chuyển hướng về web chính sau khi gửi thành công
+                    alert('Gửi thành công! Admin sẽ duyệt trong vòng 24h.'); 
                     window.location.href = 'https://wmoney-x.vercel.app/'; 
-                }, 1000);
-            } catch (err) { alert('Lỗi kết nối!'); btn.innerHTML = 'GỬI LẠI'; btn.disabled = false; }
+                }, 1500);
+
+            } catch (err) {
+                console.error(err);
+                alert('Lỗi gửi dữ liệu: ' + (err.message || '404 Table Not Found'));
+                btn.innerHTML = 'GỬI LẠI';
+                btn.disabled = false;
+            }
         }
 
-        window.onload = () => { init3DBg(); animate3D(); updateDateTime(); setInterval(updateDateTime, 1000); };
-        window.onresize = () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); };
+        window.onload = () => {
+            init3DBg();
+            animate3D();
+            initRealtime();
+            setInterval(() => { document.getElementById('datetime').innerText = new Date().toLocaleString('vi-VN'); }, 1000);
+        };
+
+        window.onresize = () => {
+            camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        };
     </script>
 </body>
 </html>
