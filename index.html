@@ -29,10 +29,10 @@
         .input-mega { width: 100%; padding: 15px; border: 3px solid #ffb3ff; border-radius: 20px; margin: 10px 0; outline: none; font-size: 1.1rem; font-weight: 700; color: #ff00ff; background: #fff; text-align: center; transition: 0.3s; }
         .btn-send-mega { background: linear-gradient(90deg, #ff00ff, #d600d6); color: white; width: 100%; padding: 20px; border-radius: 20px; font-weight: 900; font-size: 1.3rem; text-transform: uppercase; box-shadow: 0 8px 0px #990099; cursor: pointer; transition: 0.2s; }
         .btn-send-mega:active { transform: translateY(4px); box-shadow: 0 4px 0px #990099; }
-        .footer-info { margin-top: 20px; padding: 15px; background: #fff5ff; border-radius: 15px; border: 2px dashed #ff00ff; color: #666; max-width: 500px; margin-left: auto; margin-right: auto; }
         .copyright-text { margin-top: 40px; font-size: 0.85rem; font-weight: 700; color: #ff00ff; opacity: 0.9; }
         .back-link { margin-top: 20px; font-weight: 700; color: #ff00ff; cursor: pointer; padding: 8px 20px; background: white; border: 1px solid #ffb3ff; border-radius: 50px; display: inline-block; }
         .step-card { background: #fff; border: 1px solid #ffb3ff; border-left: 6px solid #ff00ff; padding: 15px; border-radius: 12px; margin-bottom: 10px; text-align: left; color: #444; }
+        .warning-box { background: #fff5f5; border: 1px dashed #ff4d4d; color: #cc0000; padding: 12px; border-radius: 15px; font-size: 0.8rem; font-weight: 700; margin-top: 15px; text-align: left; }
     </style>
 </head>
 <body>
@@ -40,19 +40,29 @@
     <div class="main-wrapper">
         <div class="logo-header">WMONEYX</div>
 
-        <!-- TRANG ĐĂNG NHẬP (LẤY UUID TỪ PROFILES) -->
+        <!-- AUTH PAGE -->
         <div id="auth-page" class="content-full">
             <div id="datetime-auth" class="time-badge">...</div>
             <div class="cute-animal-box">🔐</div>
-            <h2 class="text-xl font-black text-pink-600 mb-2 uppercase">Xác thực tài khoản</h2>
-            <p class="text-gray-500 text-sm mb-6 px-4">Nhập Email đăng ký wmoneyX của bạn.</p>
-            <div class="max-w-md mx-auto">
+            <h2 class="text-xl font-black text-pink-600 mb-2 uppercase italic">Xác thực tài khoản</h2>
+            <p class="text-gray-500 text-sm mb-6 px-4 font-bold italic">Vui lòng nhập Email bạn đã đăng ký trên hệ thống wmoneyX.</p>
+            <div class="max-w-md mx-auto px-4">
                 <input type="email" id="init-email" class="input-mega" placeholder="Nhập Email của bạn...">
-                <button onclick="unlockApp()" id="btn-login" class="btn-send-mega mt-2">BẮT ĐẦU NGAY</button>
+                
+                <!-- LƯU Ý BẮT BUỘC -->
+                <div class="warning-box">
+                    <p class="flex items-center gap-2 mb-1 uppercase"><i class="fa-solid fa-circle-exclamation"></i> Lưu ý bắt buộc:</p>
+                    <ul class="list-disc ml-4 font-medium italic space-y-1">
+                        <li>Phải dùng đúng Email đã đăng ký wmoneyX.</li>
+                        <li>Nếu dùng Email khác, hệ thống sẽ không thể đối soát dữ liệu và từ chối phê duyệt nhiệm vụ.</li>
+                    </ul>
+                </div>
+
+                <button onclick="unlockApp()" id="btn-login" class="btn-send-mega mt-6">BẮT ĐẦU NGAY</button>
             </div>
         </div>
 
-        <!-- TRANG CHỦ -->
+        <!-- HOME PAGE -->
         <div id="home-page" class="content-full" style="display: none;">
             <div id="datetime" class="time-badge">...</div>
             <div class="cute-animal-box">🐼</div>
@@ -74,23 +84,34 @@
             <button onclick="resetEmail()" class="text-[10px] text-gray-400 mt-10 hover:text-red-500 underline">Đăng xuất</button>
         </div>
 
-        <!-- TRANG GỬI MINH CHỨNG -->
+        <!-- VERIFY PAGE -->
         <div id="verify-page" class="content-full" style="display: none;">
             <h2 id="verify-title" class="text-2xl font-black text-[#ff00ff] mb-6 uppercase italic">GỬI MINH CHỨNG</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mb-4 max-w-2xl mx-auto">
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6 max-w-4xl mx-auto px-2">
                 <div class="step-card">
-                    <div class="font-black text-[#ff00ff] text-sm">BƯỚC 1</div>
-                    <div class="text-[11px] font-bold" id="step1-text">Copy link bài đánh giá</div>
+                    <div class="font-black text-[#ff00ff] text-xs">BƯỚC 1: SAO CHÉP</div>
+                    <div class="text-[11px] font-bold text-gray-700 mt-1" id="step1-text">Copy link bài đánh giá</div>
+                    <div class="mt-2 pt-2 border-t border-pink-50 text-[10px] text-pink-400 italic" id="example-step1">
+                        <span class="font-bold">VD:</span> Mở Google Map -> Chia sẻ bài viết -> Sao chép liên kết.
+                    </div>
                 </div>
                 <div class="step-card">
-                    <div class="font-black text-[#ff00ff] text-sm">BƯỚC 2</div>
-                    <div class="text-[11px] font-bold">Dán vào ô bên dưới</div>
+                    <div class="font-black text-[#ff00ff] text-xs">BƯỚC 2: DÁN LINK</div>
+                    <div class="text-[11px] font-bold text-gray-700 mt-1" id="step2-text">Dán vào ô nhập liệu</div>
+                    <div class="mt-2 pt-2 border-t border-pink-50 text-[10px] text-blue-500 italic break-all" id="example-link">
+                        <span class="font-bold text-pink-400">LINK MẪU:</span> https://maps.app.goo.gl/xyz...
+                    </div>
                 </div>
                 <div class="step-card">
-                    <div class="font-black text-[#ff00ff] text-sm">BƯỚC 3</div>
-                    <div class="text-[11px] font-bold">Bấm "Xác nhận gửi"</div>
+                    <div class="font-black text-[#ff00ff] text-xs">BƯỚC 3: GỬI ĐI</div>
+                    <div class="text-[11px] font-bold text-gray-700 mt-1">Nhấn xác nhận gửi</div>
+                    <div class="mt-2 pt-2 border-t border-pink-50 text-[10px] text-pink-400 italic">
+                        <span class="font-bold">Lưu ý:</span> Chờ thông báo "Thành công" và pháo hoa hiện ra.
+                    </div>
                 </div>
             </div>
+
             <div class="max-w-md mx-auto">
                 <input type="text" id="task-link" class="input-mega" placeholder="Dán link tại đây...">
                 <button onclick="sendToAdmin()" id="btn-send" class="btn-send-mega mt-4">XÁC NHẬN GỬI</button>
@@ -190,7 +211,18 @@
             document.getElementById('verify-page').style.display = 'block';
             document.getElementById('verify-title').innerText = "XÁC MINH " + type;
             document.getElementById('task-link').value = '';
-            document.getElementById('step1-text').innerText = (type === 'App') ? "Copy link App/Mã giới thiệu" : "Copy link bài đánh giá";
+            const exStep1 = document.getElementById('example-step1');
+            const exLink = document.getElementById('example-link');
+            if(type === 'Google Map') {
+                exStep1.innerHTML = `<span class="font-bold">VD:</span> Mở Map -> Chia sẻ bài viết -> Sao chép liên kết.`;
+                exLink.innerHTML = `<span class="font-bold text-pink-400">LINK MẪU:</span> https://maps.app.goo.gl/A1B2...`;
+            } else if(type === 'Tripadvisor') {
+                exStep1.innerHTML = `<span class="font-bold">VD:</span> Mở Tripadvisor -> Chọn đánh giá của bạn -> Sao chép URL.`;
+                exLink.innerHTML = `<span class="font-bold text-pink-400">LINK MẪU:</span> https://www.tripadvisor.com.vn/ShowUserReviews...`;
+            } else if(type === 'App') {
+                exStep1.innerHTML = `<span class="font-bold">VD:</span> Copy link App store hoặc ghi nội dung mã giới thiệu của bạn.`;
+                exLink.innerHTML = `<span class="font-bold text-pink-400">MẪU:</span> https://play.google.com/store/apps/details?id=...`;
+            }
             window.scrollTo(0,0);
         }
 
@@ -201,12 +233,10 @@
 
         async function sendToAdmin() {
             const link = document.getElementById('task-link').value.trim();
-            if(!link || !link.startsWith('http')) { alert('Vui lòng dán đúng Link minh chứng!'); return; }
+            if(!link) { alert('Vui lòng dán link minh chứng!'); return; }
             const btn = document.getElementById('btn-send');
             btn.innerHTML = 'ĐANG GỬI...'; btn.disabled = true;
-
             try {
-                // CHÈN DỮ LIỆU ĐÚNG THEO CẤU TRÚC BẢNG TRONG ẢNH
                 const { error } = await _supabase.from('special_task_submissions').insert([{ 
                     user_id: savedUserId,
                     email: savedEmail,
@@ -215,7 +245,6 @@
                     status_1: 'pending',
                     created_at: new Date().toISOString()
                 }]);
-
                 if (error) throw error;
                 confetti({ particleCount: 150, spread: 70, colors: ['#ff00ff', '#00ffff'] });
                 btn.innerHTML = 'GỬI THÀNH CÔNG!';
